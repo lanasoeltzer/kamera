@@ -163,8 +163,7 @@ res = (y - gaus1_function(x, *popt)) / np.sqrt(y)
 print('chi^2 = %f, ndof = %d, chi^2_red = %f +- %f' % (chi_sq, ndof, chi_sq_red, chi_sq_red_err))
 
 plt.figure(11)
-plt.errorbar(x, y, label='data', lw=1)
-plt.plot(x, gaus1_function(x, *popt), 'k-', label='fit')
+plt.plot(x, y, label='data', lw=1)
 plt.legend()
 
 
@@ -193,7 +192,7 @@ for von, bis in slices:
 
     y = line_place_sclice
     bkg = poly_function
-    xi = [x for x in range(len(y))]
+    xi = [x for x in range(von, bis)]
     x = np.asarray(xi)
     dy = np.sqrt(y)
 
@@ -211,11 +210,11 @@ for von, bis in slices:
     res = (y - gaus1_function(x, *popt)) / np.sqrt(y)
     print('chi^2 = %f, ndof = %d, chi^2_red = %f +- %f' % (chi_sq, ndof, chi_sq_red, chi_sq_red_err))
 
+    plt.errorbar(x, y, label='data', lw=1)
+    plt.plot(x, poly_function(x, *popt), 'k-', label='fit')
+    plt.legend()
 
-plt.figure(11)
-plt.errorbar(x, y, label='data', lw=1)
-plt.plot(x, gaus1_function(x, *popt), 'k-', label='fit')
-plt.legend()
+
 
 
 
