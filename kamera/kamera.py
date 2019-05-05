@@ -131,7 +131,7 @@ res = (y - poly_function(x, *popt)) / np.sqrt(y)
 print('chi^2 = %f, ndof = %d, chi^2_red = %f +- %f' % (chi_sq, ndof, chi_sq_red, chi_sq_red_err))
 
 plt.figure(10)
-plt.errorbar(x, y, label='data', lw=1)
+plt.plot(x, y, label='data', lw=1)
 plt.plot(x, poly_function(x, *popt), 'k-', label='fit')
 plt.legend()
 
@@ -192,9 +192,11 @@ for von, bis in slices:
 
     y = line_place_sclice
     bkg = poly_function
-    xi = [x for x in range(von, bis)]
+    xi = [x for x in range(len(y))]
+    xi= [x - (len(y)/2) for x in range(len(y))]
     x = np.asarray(xi)
     dy = np.sqrt(y)
+    print(x)
 
     params = ['mu', 'sigma', 'amp', 'bkg']
     popt, pcov = curve_fit(gaus1_function, x, y, sigma=dy, p0=None)
@@ -210,10 +212,11 @@ for von, bis in slices:
     res = (y - gaus1_function(x, *popt)) / np.sqrt(y)
     print('chi^2 = %f, ndof = %d, chi^2_red = %f +- %f' % (chi_sq, ndof, chi_sq_red, chi_sq_red_err))
 
-    plt.errorbar(x, y, label='data', lw=1)
-    plt.plot(x, poly_function(x, *popt), 'k-', label='fit')
+
+    x_verschoben= [a + von+ int(len(y)/2)  for a in x]
+    plt.plot(x_verschoben, y,  lw=1)
+    plt.plot(x_verschoben, gaus1_function(x, *popt), 'k-')
     plt.legend()
-#
 
 
 
