@@ -9,6 +9,9 @@ from scipy.signal import argrelmin
 from scipy.optimize import curve_fit
 from scipy import special
 
+
+#####comment
+
 ###bild laden
 filename = os.path.join("C:\\Users\\Lana\\Desktop\\ba", 'Bild43_20190403.bmp')
 bild = io.imread("C:\\Users\\Lana\\Desktop\\ba", 'Bild43_20190403.bmp')
