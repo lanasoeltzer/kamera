@@ -10,7 +10,6 @@ from scipy.optimize import curve_fit
 from scipy import special
 
 
-#####comment
 
 ###bild laden
 filename = os.path.join("C:\\Users\\Lana\\Desktop\\ba", 'Bild43_20190403.bmp')

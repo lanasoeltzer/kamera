@@ -8,15 +8,16 @@ import skimage
 from scipy.signal import argrelmin
 from scipy.optimize import curve_fit
 from scipy import optimize
+from sklearn.cluster import MeanShift
 
 
 ###bild laden
 import os
 
-filename = os.path.join("C:\\Users\\Lana\\Desktop\\ba", 'Bild7_20190403.bmp')
+filename = os.path.join('bild7_20190403.bmp')
 from skimage import io
 
-bild = io.imread(r"C:\Users\Lana\Desktop\ba\Bild7_20190403.bmp")
+bild = io.imread('bild7_20190403.bmp')
 print(bild.shape)
 plt.gray()
 
@@ -167,42 +168,11 @@ plt.plot(x, gaus1_function(x, *popt), 'k-', label='fit')
 plt.legend()
 
 
-#def gaussian(x, height, center, width, bkg):
-#    return height * np.exp(-(x - center) ** 2 / (2 * width ** 2)) + bkg
+x=lineprofile
+clustering = MeanShift().fit(x)
+clustering.labels_array([1, 1, 1, 0, 0, 0])
+print(clustering.labels_)
 
-
-#y = lineprofile
-#bkg = poly_function
-#xi = [x for x in range(len(y))]
-#x = np.asarray(xi)
-#dy = np.sqrt(y)
-
-
-#def six_gaussians(x, h1, c1, w1,
-#                  h2, c2, w2,
-#                  h3, c3, w3,
-#                  h4, c4, w4,
-#                  h5, c5, w5,
-#                  h6, c6, w6,
-#                bkg):
-#   return (gaussian(x, h1, c1, w1, bkg) +
-#            gaussian(x, h2, c2, w2, bkg) +
-#            gaussian(x, h3, c3, w3,bkg) +
-#            gaussian(x, h4, c4, w4,bkg) +
-#            gaussian(x, h5, c5, w5, bkg) +
-#            gaussian(x, h6, c6, w6, bkg) +
-#            bkg)
-
-#errfunc6 = lambda p, x, y: (six_gaussians(x, *p) - y) ** 2
-#guess6= {0.5, 22, 10,
-#        0.5, 34, 10,
-#         0.5, 45, 10,
-#         0.5, 56, 10,
-#         0.5, 67, 10,
-#         0.6, 77, 10, bkg}
-#optim6, success = curve_fit(six_gaussians, x, y,sigma=dy, p0=None)
-#plt.figure(12)
-#plt.plot(x, six_gaussians(x, *optim6), c='b', label='fit of 6 Gaussians')
 
 ####minima suchen
 minima = argrelmin(lineprofile, order=5)[0]
