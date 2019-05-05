@@ -213,7 +213,7 @@ for von, bis in slices:
     plt.errorbar(x, y, label='data', lw=1)
     plt.plot(x, poly_function(x, *popt), 'k-', label='fit')
     plt.legend()
-
+#
 
 
 
