@@ -168,16 +168,56 @@ plt.plot(x, gaus1_function(x, *popt), 'k-', label='fit')
 plt.legend()
 
 
-x=lineprofile
-clustering = MeanShift().fit(x)
-clustering.labels_array([1, 1, 1, 0, 0, 0])
-print(clustering.labels_)
-
 
 ####minima suchen
 minima = argrelmin(lineprofile, order=5)[0]
 minliste = list(minima)
-# print(minima)
+print(minima)
+
+
+slices=[]
+for i in range(len(minliste)-1):
+    von=minliste[i]
+    bis=minliste[i+1]
+    slice=(von, bis)
+    slices.append(slice)
+print(slices)
+
+
+for von, bis in slices:
+    line_place_sclice=lineprofile[von:bis]
+
+
+    def gaus1_function(x, mu, sigma, amp, bkg):
+        return amp * np.exp(-(x - mu) ** 2 / (2 * sigma ** 2)) + bkg
+
+    y = line_place_sclice
+    bkg = poly_function
+    xi = [x for x in range(len(y))]
+    x = np.asarray(xi)
+    dy = np.sqrt(y)
+
+    params = ['mu', 'sigma', 'amp', 'bkg']
+    popt, pcov = curve_fit(gaus1_function, x, y, sigma=dy, p0=None)
+    perr = np.sqrt(np.diagonal(pcov))
+    for i in range(len(params)):
+        print('%16s = % f +- %f' % (params[i], popt[i], perr[i]))
+    print('')
+    chi_sq = np.sum(((y - gaus1_function(x, *popt)) / dy) ** 2)
+    ndof = len(y) - len(popt)
+    chi_sq_red = chi_sq / ndof
+    chi_sq_red_err = np.sqrt(2 / ndof)
+
+    res = (y - gaus1_function(x, *popt)) / np.sqrt(y)
+    print('chi^2 = %f, ndof = %d, chi^2_red = %f +- %f' % (chi_sq, ndof, chi_sq_red, chi_sq_red_err))
+
+
+plt.figure(11)
+plt.errorbar(x, y, label='data', lw=1)
+plt.plot(x, gaus1_function(x, *popt), 'k-', label='fit')
+plt.legend()
+
+
 
 ####abstand messen
 min = minliste[1:]
