@@ -10,8 +10,8 @@ from scipy.optimize import curve_fit
 from scipy import special
 
 ###bild laden
-filename = os.path.join("C:\\Users\\Lana\\Desktop\\ba", 'Bild7_20190403.bmp')
-bild = io.imread("C:\\Users\\Lana\\Desktop\\ba", 'Bild7_20190403.bmp')
+filename = os.path.join("C:\\Users\\Lana\\Desktop\\ba", 'Bild43_20190403.bmp')
+bild = io.imread("C:\\Users\\Lana\\Desktop\\ba", 'Bild43_20190403.bmp')
 print(bild.shape)
 plt.gray()
 
