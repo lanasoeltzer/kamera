@@ -2,13 +2,12 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
 import scipy
-from skimage.exposure import histogram
 from skimage import exposure
 import skimage
 from scipy.signal import argrelmin
 from scipy.optimize import curve_fit
 from scipy import optimize
-from sklearn.cluster import MeanShift
+
 
 
 ###bild laden
@@ -64,9 +63,6 @@ plt.figure(3)
 plt.imshow(bildROI)
 plt.close()
 
-###Linie anzeigen
-# line_x1 = 126
-# plt.axvline(x = line_x1, lw=1)
 
 #####Lineprofile
 ##erstes rechteck
@@ -84,8 +80,8 @@ plt.plot(lineprofile2, lw=1)
 plt.ylim(0, 1)
 plt.title('Lineprofile2')
 plt.close()
-###zusammen
 
+###zusammen
 lineprofile = lineprofile1 + lineprofile2
 plt.figure(9)
 plt.plot(lineprofile, lw=1)
@@ -98,10 +94,6 @@ lineprofileunter = skimage.measure.profile_line(bilduntergrund, (5, 90), (830, 1
 plt.figure(8)
 plt.plot(lineprofileunter, lw=1)
 plt.close()
-
-
-# print("Linienprofile:\n")
-# print(lineprofileunter)
 
 
 ###polynom fit untergrund
@@ -214,7 +206,6 @@ for von, bis in slices:
 
 
     x_verschoben= [a + von+ int(len(y)/2)  for a in x]
-    plt.plot(x_verschoben, y,  lw=1)
     plt.plot(x_verschoben, gaus1_function(x, *popt), 'k-')
     plt.legend()
 
